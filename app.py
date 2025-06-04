@@ -7,6 +7,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+# ✅ This route keeps your app alive
+@app.route('/ping', methods=['GET'])
+def ping():
+    return "OK", 200
+
+# ✅ This route handles name fetching
 @app.route("/get_name", methods=["POST"])
 def get_name():
     roll_number = request.form.get("roll_number")
@@ -54,6 +60,7 @@ def get_name():
 
     return jsonify({"name": "Not Found"})
 
+# ✅ Run the app on Render
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
